@@ -358,7 +358,7 @@
           @keyframes ambGridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(144px, 144px); } }
 
           #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
-          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1283px; }
+          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1285px; }
           #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
           #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
           #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
@@ -453,8 +453,8 @@
           <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
           <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
           <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
-          <ellipse id="aura-cursor-halo" cx="167" cy="1283" rx="14" ry="11" fill="url(#aura-halo-grad)" />
-          <rect id="aura-cursor" x="163" y="1275" width="9" height="14" fill={t.green} />
+          <ellipse id="aura-cursor-halo" cx="167" cy="1285" rx="14" ry="11" fill="url(#aura-halo-grad)" />
+          <rect id="aura-cursor" x="163" y="1277" width="9" height="14" fill={t.green} />
 
           {/*
             ── PROGRESSIVE REVEAL CURTAINS ──
@@ -494,13 +494,13 @@
           {/* tail -f activity.log: 20 chars → cmd_w=160 (positions calibrated for CI render with real stats data) */}
           <rect id="curt-log-pre"     x="0"   y="1061" width="167" height="22"  fill={t.termBg} />
           <rect id="curt-log-cmd"     x="167" y="1061" width="160" height="22"  fill={t.termBg} />
-          <rect id="typing-cur-lg"    x="167" y="1063" width="8"   height="14"  fill={t.green} opacity="0" />
+          <rect id="typing-cur-lg"    x="167" y="1062" width="8"   height="14"  fill={t.green} opacity="0" />
           <rect id="curt-log-out"     x="0"   y="1083" width="900" height="121" fill={t.termBg} />
 
           {/* ping --connect: 14 chars → cmd_w=112 */}
           <rect id="curt-ping-pre"    x="0"   y="1214" width="167" height="22"  fill={t.termBg} />
           <rect id="curt-ping-cmd"    x="167" y="1214" width="112" height="22"  fill={t.termBg} />
-          <rect id="typing-cur-pg"    x="167" y="1216" width="8"   height="14"  fill={t.green} opacity="0" />
+          <rect id="typing-cur-pg"    x="167" y="1215" width="8"   height="14"  fill={t.green} opacity="0" />
           <rect id="curt-ping-out"    x="0"   y="1236" width="900" height="28"  fill={t.termBg} />
 
           {/* Final cursor line (covers existing aura-cursor + halo until pingOut+500ms) */}
