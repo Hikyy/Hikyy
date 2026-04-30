@@ -57,12 +57,12 @@
     ],
   };
 
-  const ASCII = `    ____                                __  __ _ _              
-   / __ \\____ ___  ______ _____  ___   / / / /(_) /____  ____ _ 
-  / /_/ / __ \`/ / / / __ \`/ __ \\/ _ \\ / /_/ // / //_/ / / / / 
- / _, _/ /_/ / /_/ / /_/ / / / /  __// __  // / ,< / /_/ / /_/ /
-/_/ |_|\\__,_/\\__, /\\__,_/_/ /_/\\___//_/ /_//_/_/|_|\\__, /\\__, / 
-            /____/                                /____//____/  `;
+  const ASCII = ` ____                                        _   _ _ _                
+|  _ \\ __ _ _   _  __ _ _ __   ___          | | | (_) | ___   _ _   _ 
+| |_) / _\` | | | |/ _\` | '_ \\ / _ \\  _____  | |_| | | |/ / | | | | | |
+|  _ < (_| | |_| | (_| | | | |  __/ |_____| |  _  | |   <| |_| | |_| |
+|_| \\_\\__,_|\\__, |\\__,_|_| |_|\\___|         |_| |_|_|_|\\_\\\\__, |\\__, |
+            |___/                                         |___/ |___/ `;
 
   const Prompt = ({ user = 'rayane', host = 'github', path = '~', cmd }) => (
     <div style={{ marginTop: 18, display: 'flex', fontFamily: t.mono, fontSize: 13 }}>
@@ -301,16 +301,35 @@
       {/* Animated overlay — MUST be last child (Satori has no z-index; document order = paint order) */}
       <style>{`
         @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-        @keyframes lightPulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
-        #aura-cursor  { animation: blinkCursor 1s steps(2) infinite; }
-        #aura-light-r { animation: lightPulse 2.4s ease-in-out infinite; }
-        #aura-light-y { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
-        #aura-light-g { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
+        @keyframes haloBlink   { 0%, 49% { opacity: 0.6; transform: scale(1.1); } 50%, 100% { opacity: 0; transform: scale(1); } }
+        @keyframes lightPulse  { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
+        @keyframes bannerGlow  { 0%, 100% { opacity: 0.3 } 50% { opacity: 0.56 } }
+        #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
+        #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 153px 1271px; }
+        #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
+        #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
+        #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
+        #aura-banner-glow  { animation: bannerGlow 3.5s ease-in-out infinite; }
       `}</style>
       <svg width="900" height="1380" viewBox="0 0 900 1380" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
+        <defs>
+          <radialGradient id="aura-halo-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(57,211,83,0.65)" />
+            <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
+            <stop offset="100%" stopColor="rgba(57,211,83,0)" />
+          </radialGradient>
+          <radialGradient id="aura-banner-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(57,211,83,0.55)" />
+            <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
+            <stop offset="100%" stopColor="rgba(57,211,83,0)" />
+          </radialGradient>
+        </defs>
+        {/* CRT glow behind banner — banner ASCII is left-aligned in the body (~x=30 to ~x=460) */}
+        <ellipse id="aura-banner-glow" cx="160" cy="100" rx="190" ry="42" fill="url(#aura-banner-grad)" />
         <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
         <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
         <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
+        <ellipse id="aura-cursor-halo" cx="153" cy="1271" rx="14" ry="11" fill="url(#aura-halo-grad)" />
         <rect id="aura-cursor" x="149" y="1263" width="9" height="14" fill={t.green} />
       </svg>
     </div>
