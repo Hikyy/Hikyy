@@ -3,7 +3,10 @@ name: Generate README
 on:
   push:
     branches: [main]
-    paths: ['readme.source.md', 'scripts/inject-stats.mjs', '.github/workflows/readme-aura.yml']
+    paths:
+      - 'readme.source.md'
+      - 'scripts/**'
+      - '.github/workflows/readme-aura.yml'
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
@@ -27,7 +30,24 @@ jobs:
           GITHUB_USER: ${{ github.repository_owner }}
         run: node scripts/inject-stats.mjs
 
-      - name: Generate README
+      # auto_commit disabled — we run a post-step before committing ourselves
+      - name: Generate README (no auto-commit)
         uses: collectioneur/readme-aura@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          auto_commit: 'false'
+
+      - name: Fix SVG animation scoping
+        run: node scripts/fix-svg-animations.mjs
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md .github/assets
+          if git diff --cached --quiet; then
+            echo "No README changes to commit."
+          else
+            git commit -m "regenerate README via readme-aura (with animations)"
+            git push
+          fi
