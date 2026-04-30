@@ -126,7 +126,7 @@
           </defs>
           {/* Animated drifting grid (now 144px move = 2 cells, faster 18s — more visible motion) */}
           <rect id="amb-grid" x="-144" y="-144" width="1188" height="1599" fill="url(#amb-grid-pat)" opacity="0.5" />
-          <ellipse id="aura-banner-glow" cx="280" cy="100" rx="300" ry="42" fill="url(#aura-banner-grad)" />
+          <ellipse id="aura-banner-glow" cx="265" cy="103" rx="295" ry="42" fill="url(#aura-banner-grad)" />
           <circle id="amb-p1" cx="72"  cy="655"  r="2.3" fill="#39d353" fillOpacity="0.4" />
           <circle id="amb-p2" cx="828" cy="420"  r="2.5" fill="#a78bfa" fillOpacity="0.4" />
           <circle id="amb-p3" cx="684" cy="1022" r="2.9" fill="#39d353" fillOpacity="0.35" />
@@ -358,7 +358,7 @@
           @keyframes ambGridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(144px, 144px); } }
 
           #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
-          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1289px; }
+          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1287px; }
           #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
           #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
           #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
@@ -453,8 +453,8 @@
           <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
           <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
           <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
-          <ellipse id="aura-cursor-halo" cx="167" cy="1289" rx="14" ry="11" fill="url(#aura-halo-grad)" />
-          <rect id="aura-cursor" x="163" y="1281" width="9" height="14" fill={t.green} />
+          <ellipse id="aura-cursor-halo" cx="167" cy="1287" rx="14" ry="11" fill="url(#aura-halo-grad)" />
+          <rect id="aura-cursor" x="163" y="1279" width="9" height="14" fill={t.green} />
 
           {/*
             ── PROGRESSIVE REVEAL CURTAINS ──
