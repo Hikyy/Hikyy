@@ -1,7 +1,19 @@
 
 
-```aura width=900 height=1100 link="https://github.com/Hikyy"
+```aura width=900 height=1340 link="https://github.com/Hikyy"
 (() => {
+  /* @stats:start */
+  const STATS = {
+    "login": "Hikyy",
+    "totalStars": 0,
+    "totalForks": 0,
+    "totalCommits": 0,
+    "totalRepos": 0,
+    "followers": 0,
+    "createdAt": "",
+    "languages": []
+  };
+  /* @stats:end */
   const mono = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
   const green = '#39d353';
   const purple = '#a78bfa';
@@ -152,6 +164,67 @@
           </div>
         </Out>
 
+        <Prompt>./show-stats.sh --user $(whoami)</Prompt>
+        <Out style={{ marginTop: 8 }}>
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: '#010409', border: '1px solid #21262d', borderRadius: 6, padding: 14 }}>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: green }}>┌─</span>
+                <span style={{ color: green, marginLeft: 4 }}>{STATS.login} · GitHub stats</span>
+                <span style={{ color: green, marginLeft: 4 }}>─┐</span>
+              </div>
+              <div style={{ display: 'flex', marginTop: 8 }}>
+                <span style={{ color: dim, width: 150 }}>Total Stars</span>
+                <span style={{ color: yellow }}>★</span>
+                <span style={{ color: fg, marginLeft: 6 }}>{STATS.totalStars}</span>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: dim, width: 150 }}>Total Commits</span>
+                <span style={{ color: green }}>{STATS.totalCommits}</span>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: dim, width: 150 }}>Total Forks</span>
+                <span style={{ color: blue }}>{STATS.totalForks}</span>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: dim, width: 150 }}>Public Repos</span>
+                <span style={{ color: purple }}>{STATS.totalRepos}</span>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: dim, width: 150 }}>Followers</span>
+                <span style={{ color: red }}>{STATS.followers}</span>
+              </div>
+              <div style={{ display: 'flex', marginTop: 8 }}>
+                <span style={{ color: dim }}>Member since:</span>
+                <span style={{ color: fg, marginLeft: 6 }}>{STATS.createdAt ? STATS.createdAt.slice(0, 10) : '—'}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: '#010409', border: '1px solid #21262d', borderRadius: 6, padding: 14 }}>
+              <div style={{ display: 'flex' }}>
+                <span style={{ color: green }}>┌─</span>
+                <span style={{ color: green, marginLeft: 4 }}>Most Used Languages</span>
+                <span style={{ color: green, marginLeft: 4 }}>─┐</span>
+              </div>
+              {STATS.languages.slice(0, 8).map((lang) => {
+                const filled = Math.max(1, Math.min(16, Math.round(lang.percentage * 16 / 100)));
+                const bar = '█'.repeat(filled) + '░'.repeat(16 - filled);
+                return (
+                  <div key={lang.name} style={{ display: 'flex', marginTop: 4 }}>
+                    <span style={{ color: lang.color || fg, width: 110 }}>{lang.name}</span>
+                    <span style={{ color: lang.color || fg }}>{bar}</span>
+                    <span style={{ color: dim, marginLeft: 8 }}>{lang.percentage}%</span>
+                  </div>
+                );
+              })}
+              {STATS.languages.length === 0 && (
+                <div style={{ display: 'flex', marginTop: 8 }}>
+                  <span style={{ color: dim }}>(run scripts/inject-stats.mjs to populate)</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </Out>
+
         <Prompt>tail -f activity.log</Prompt>
         <Out style={{ marginTop: 8 }}>
           <div style={{ display: 'flex' }}><span style={{ color: dim }}>[2026-04]</span> <span style={{ color: green, marginLeft: 6 }}>INFO</span> <span style={{ marginLeft: 6 }}>shipped </span><span style={{ color: yellow, marginLeft: 4 }}>Clairfact v1.0</span><span style={{ marginLeft: 4 }}>· facturX e-reporting live</span></div>
@@ -187,8 +260,3 @@
   );
 })()
 ```
-
-<p align="center">
-  <img alt="stats" src="https://github-readme-stats.vercel.app/api?username=Hikyy&show_icons=true&theme=github_dark&hide_border=true&bg_color=010409&title_color=39d353&icon_color=a78bfa&text_color=c9d1d9" height="170" />
-  <img alt="top langs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Hikyy&layout=compact&theme=github_dark&hide_border=true&bg_color=010409&title_color=39d353&text_color=c9d1d9&langs_count=8" height="170" />
-</p>
