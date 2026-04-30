@@ -112,10 +112,11 @@
 
         {/* ─── Window chrome ─── */}
         <div style={{ background: t.chrome, borderBottom: `1px solid ${t.border}`, padding: '10px 16px', display: 'flex', alignItems: 'center' }}>
+          {/* Static placeholders for flex spacing — visible lights are drawn by the animated overlay SVG at the bottom */}
           <div style={{ display: 'flex', gap: 8 }}>
-            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ff5f56' }} />
-            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ffbd2e' }} />
-            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#27c93f' }} />
+            <div style={{ width: 12, height: 12 }} />
+            <div style={{ width: 12, height: 12 }} />
+            <div style={{ width: 12, height: 12 }} />
           </div>
           <div style={{ flex: 1, textAlign: 'center', fontFamily: t.mono, fontSize: 12, color: t.dim, marginLeft: 12 }}>
             rayane@github: ~/profile — zsh
@@ -300,9 +301,16 @@
       {/* Animated overlay — MUST be last child (Satori has no z-index; document order = paint order) */}
       <style>{`
         @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-        #aura-cursor { animation: blinkCursor 1s steps(2) infinite; }
+        @keyframes lightPulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
+        #aura-cursor  { animation: blinkCursor 1s steps(2) infinite; }
+        #aura-light-r { animation: lightPulse 2.4s ease-in-out infinite; }
+        #aura-light-y { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
+        #aura-light-g { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
       `}</style>
       <svg width="900" height="1380" viewBox="0 0 900 1380" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
+        <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
+        <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
+        <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
         <rect id="aura-cursor" x="149" y="1263" width="9" height="14" fill={t.green} />
       </svg>
     </div>
