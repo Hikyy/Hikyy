@@ -39,7 +39,7 @@
     lookingFor: 'CDI · web modernes & performants',
     stack: {
       frontend:      ['React', 'Next.js', 'Vue.js', 'React Native', 'TypeScript', 'TailwindCSS'],
-      backend:       ['Laravel', 'Spring Boot', 'PHP', 'Python', 'Golang', 'PostgreSQL', 'MySQL'],
+      backend:       ['Laravel', 'Java Spring Boot', 'PHP', 'Python', 'Golang', 'PostgreSQL', 'MySQL'],
       devops:        ['Docker', 'Kubernetes', 'Terraform', 'Ansible', 'Traefik', 'Azure DevOps'],
       observability: ['Prometheus', 'Grafana', 'Mimir'],
     },
