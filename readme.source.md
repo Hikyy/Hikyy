@@ -93,33 +93,31 @@
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: 900, fontFamily: t.mono }}>
-      <style>{`
-        @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-        @keyframes pulseLight  { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
-        @keyframes statusBlink { 0%, 80% { fill: #39d353 } 90% { fill: #2ea043 } 100% { fill: #39d353 } }
-
-        #aura-cursor  { animation: blinkCursor 1s steps(2) infinite; }
-        #aura-light-1 { animation: pulseLight 2.4s ease-in-out infinite; }
-        #aura-light-2 { animation: pulseLight 2.4s ease-in-out infinite 0.3s; }
-        #aura-light-3 { animation: pulseLight 2.4s ease-in-out infinite 0.6s; }
-        #aura-status  { animation: statusBlink 2s ease-in-out infinite; }
-      `}</style>
-
+    <div style={{ display: 'flex', flexDirection: 'column', width: 900, fontFamily: t.mono, position: 'relative' }}>
+      {/*
+        Animation pattern (verified working — readme-aura quirks):
+        1. <svg> absolute overlay must be the LAST child to draw on top of the
+           opaque terminal background (Satori has no z-index, document order = z-order).
+        2. <style> is extracted by readme-aura's renderer (renderer.js:161) and
+           re-injected before the FIRST </svg> in output. Since this overlay is
+           the only inline <svg>, the style lands inside it next to the cursor rect.
+        3. Animations only apply when the nested <svg> matches the full container
+           dimensions and uses the root clip-path/mask (not the chained subtree
+           clip/mask Satori adds for offset nested SVGs).
+      */}
       <div style={{
         display: 'flex', flexDirection: 'column',
         background: t.termBg, border: `1px solid ${t.border}`, borderRadius: 12, overflow: 'hidden',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
       }}>
 
-        {/* ─── Window chrome (raw SVG so animation IDs survive) ─── */}
+        {/* ─── Window chrome ─── */}
         <div style={{ background: t.chrome, borderBottom: `1px solid ${t.border}`, padding: '10px 16px', display: 'flex', alignItems: 'center' }}>
-          <svg width="56" height="14" viewBox="0 0 56 14" xmlns="http://www.w3.org/2000/svg">
-            <circle id="aura-light-1" cx="7"  cy="7" r="6" fill="#ff5f56" />
-            <circle id="aura-light-2" cx="27" cy="7" r="6" fill="#ffbd2e" />
-            <circle id="aura-light-3" cx="47" cy="7" r="6" fill="#27c93f" />
-          </svg>
-          <div style={{ flex: 1, textAlign: 'center', fontFamily: t.mono, fontSize: 12, color: t.dim }}>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ff5f56' }} />
+            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ffbd2e' }} />
+            <div style={{ width: 12, height: 12, borderRadius: 6, background: '#27c93f' }} />
+          </div>
+          <div style={{ flex: 1, textAlign: 'center', fontFamily: t.mono, fontSize: 12, color: t.dim, marginLeft: 12 }}>
             rayane@github: ~/profile — zsh
           </div>
           <div style={{ fontFamily: t.mono, fontSize: 11, color: t.dim }}>80×24</div>
@@ -133,12 +131,9 @@
 {ASCII}
           </pre>
 
-          {/* Status sub-line — with animated [OK] dot */}
+          {/* Status sub-line */}
           <div style={{ marginTop: 4, fontFamily: t.mono, fontSize: 12, color: t.dim, display: 'flex', alignItems: 'center' }}>
             <span>[</span>
-            <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: 2, marginRight: 2 }}>
-              <circle id="aura-status" cx="4" cy="4" r="3" fill={t.green} />
-            </svg>
             <span style={{ color: t.green, marginLeft: 2 }}>OK</span>
             <span style={{ marginLeft: 6 }}>] system online · </span>
             <span style={{ color: t.yellow, marginLeft: 4 }}>full-stack developer</span>
@@ -291,19 +286,25 @@
             </div>
           </Out>
 
-          {/* Final cursor line — raw SVG cursor for reliable animation */}
+          {/* Final cursor line — actual cursor rect lives in the absolute overlay SVG above; this is the prompt only */}
           <div style={{ marginTop: 22, fontFamily: t.mono, fontSize: 13, display: 'flex', alignItems: 'center' }}>
             <span style={{ color: t.green }}>rayane@github</span>
             <span style={{ color: t.fg }}>:</span>
             <span style={{ color: t.blue }}>~</span>
             <span style={{ color: t.fg }}>$ </span>
-            <svg width="10" height="17" viewBox="0 0 10 17" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: 4 }}>
-              <rect id="aura-cursor" x="0" y="0" width="9" height="17" fill={t.green} />
-            </svg>
           </div>
 
         </div>
       </div>
+
+      {/* Animated overlay — MUST be last child (Satori has no z-index; document order = paint order) */}
+      <style>{`
+        @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+        #aura-cursor { animation: blinkCursor 1s steps(2) infinite; }
+      `}</style>
+      <svg width="900" height="1380" viewBox="0 0 900 1380" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
+        <rect id="aura-cursor" x="149" y="1263" width="9" height="14" fill={t.green} />
+      </svg>
     </div>
   );
 })()
