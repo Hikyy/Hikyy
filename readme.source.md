@@ -205,7 +205,7 @@
                 <span style={{ color: green, marginLeft: 4 }}>Most Used Languages</span>
                 <span style={{ color: green, marginLeft: 4 }}>─┐</span>
               </div>
-              {STATS.languages.slice(0, 8).map((lang) => {
+              {STATS.languages.slice(0, 6).map((lang) => {
                 const filled = Math.max(1, Math.min(16, Math.round(lang.percentage * 16 / 100)));
                 const bar = '█'.repeat(filled) + '░'.repeat(16 - filled);
                 return (
