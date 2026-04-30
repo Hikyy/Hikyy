@@ -126,7 +126,7 @@
           </defs>
           {/* Animated drifting grid (now 144px move = 2 cells, faster 18s — more visible motion) */}
           <rect id="amb-grid" x="-144" y="-144" width="1188" height="1599" fill="url(#amb-grid-pat)" opacity="0.5" />
-          <ellipse id="aura-banner-glow" cx="160" cy="100" rx="190" ry="42" fill="url(#aura-banner-grad)" />
+          <ellipse id="aura-banner-glow" cx="280" cy="100" rx="300" ry="42" fill="url(#aura-banner-grad)" />
           <circle id="amb-p1" cx="72"  cy="655"  r="2.3" fill="#39d353" fillOpacity="0.4" />
           <circle id="amb-p2" cx="828" cy="420"  r="2.5" fill="#a78bfa" fillOpacity="0.4" />
           <circle id="amb-p3" cx="684" cy="1022" r="2.9" fill="#39d353" fillOpacity="0.35" />
