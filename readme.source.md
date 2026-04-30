@@ -108,7 +108,40 @@
       <div style={{
         display: 'flex', flexDirection: 'column',
         background: t.termBg, border: `1px solid ${t.border}`, borderRadius: 12, overflow: 'hidden',
+        position: 'relative',
       }}>
+
+        {/* BACKGROUND SVG — drawn behind chrome+body. Body content with opaque bg (json/stats blocks) hides scan when crossing them. */}
+        <svg width="900" height="1311" viewBox="0 0 900 1311" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
+          <defs>
+            <radialGradient id="aura-banner-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="rgba(57,211,83,0.55)" />
+              <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
+              <stop offset="100%" stopColor="rgba(57,211,83,0)" />
+            </radialGradient>
+            {/* Grid pattern — 72×72 cells (8% of 900 = reference scale), strokeOpacity reduced 15% to 0.15 */}
+            <pattern id="amb-grid-pat" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#39d353" strokeWidth="0.6" strokeOpacity="0.185" />
+            </pattern>
+          </defs>
+          {/* Animated drifting grid (now 144px move = 2 cells, faster 18s — more visible motion) */}
+          <rect id="amb-grid" x="-144" y="-144" width="1188" height="1599" fill="url(#amb-grid-pat)" opacity="0.5" />
+          <ellipse id="aura-banner-glow" cx="160" cy="100" rx="190" ry="42" fill="url(#aura-banner-grad)" />
+          <circle id="amb-p1" cx="72"  cy="655"  r="2.3" fill="#39d353" fillOpacity="0.4" />
+          <circle id="amb-p2" cx="828" cy="420"  r="2.5" fill="#a78bfa" fillOpacity="0.4" />
+          <circle id="amb-p3" cx="684" cy="1022" r="2.9" fill="#39d353" fillOpacity="0.35" />
+          <circle id="amb-p4" cx="198" cy="1127" r="2.3" fill="#e3b341" fillOpacity="0.35" />
+          <circle id="amb-p5" cx="792" cy="839"  r="2.5" fill="#39d353" fillOpacity="0.4" />
+          <circle id="amb-p6" cx="126" cy="288"  r="2.7" fill="#58a6ff" fillOpacity="0.3" />
+          <circle id="amb-p7" cx="540" cy="183"  r="2.2" fill="#a78bfa" fillOpacity="0.35" />
+          <circle id="amb-p8" cx="396" cy="1206" r="2.5" fill="#39d353" fillOpacity="0.35" />
+          <circle id="amb-s1" cx="162" cy="1285" r="1.6" fill="#39d353" fillOpacity="0.7" />
+          <circle id="amb-s2" cx="378" cy="1285" r="1.4" fill="#39d353" fillOpacity="0.7" />
+          <circle id="amb-s3" cx="576" cy="1285" r="1.6" fill="#39d353" fillOpacity="0.7" />
+          <circle id="amb-s4" cx="720" cy="1285" r="1.3" fill="#39d353" fillOpacity="0.7" />
+          <circle id="amb-s5" cx="288" cy="1285" r="1.4" fill="#39d353" fillOpacity="0.7" />
+          <rect id="aura-scanline" x="0" y="0" width="900" height="3" fill="#39d353" fillOpacity="0.35" />
+        </svg>
 
         {/* ─── Window chrome ─── */}
         <div style={{ background: t.chrome, borderBottom: `1px solid ${t.border}`, padding: '10px 16px', display: 'flex', alignItems: 'center' }}>
@@ -125,7 +158,7 @@
         </div>
 
         {/* ─── Body ─── */}
-        <div style={{ display: 'flex', flexDirection: 'column', padding: '24px 28px 32px', background: t.termBg }}>
+        <div style={{ display: 'flex', flexDirection: 'column', padding: '24px 28px 32px' }}>
 
           {/* ASCII banner */}
           <pre style={{ margin: 0, color: t.green, fontSize: 11, fontFamily: t.mono, lineHeight: 1.2, whiteSpace: 'pre' }}>
@@ -287,7 +320,7 @@
             </div>
           </Out>
 
-          {/* Final cursor line — actual cursor rect lives in the absolute overlay SVG above; this is the prompt only */}
+          {/* Final cursor line — actual cursor rect lives in the absolute overlay SVG (last child of terminal box) */}
           <div style={{ marginTop: 22, fontFamily: t.mono, fontSize: 13, display: 'flex', alignItems: 'center' }}>
             <span style={{ color: t.green }}>rayane@github</span>
             <span style={{ color: t.fg }}>:</span>
@@ -296,42 +329,86 @@
           </div>
 
         </div>
-      </div>
 
-      {/* Animated overlay — MUST be last child (Satori has no z-index; document order = paint order) */}
-      <style>{`
-        @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-        @keyframes haloBlink   { 0%, 49% { opacity: 0.6; transform: scale(1.1); } 50%, 100% { opacity: 0; transform: scale(1); } }
-        @keyframes lightPulse  { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
-        @keyframes bannerGlow  { 0%, 100% { opacity: 0.3 } 50% { opacity: 0.56 } }
-        #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
-        #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 153px 1271px; }
-        #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
-        #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
-        #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
-        #aura-banner-glow  { animation: bannerGlow 3.5s ease-in-out infinite; }
-      `}</style>
-      <svg width="900" height="1380" viewBox="0 0 900 1380" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
-        <defs>
-          <radialGradient id="aura-halo-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(57,211,83,0.65)" />
-            <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
-            <stop offset="100%" stopColor="rgba(57,211,83,0)" />
-          </radialGradient>
-          <radialGradient id="aura-banner-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(57,211,83,0.55)" />
-            <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
-            <stop offset="100%" stopColor="rgba(57,211,83,0)" />
-          </radialGradient>
-        </defs>
-        {/* CRT glow behind banner — banner ASCII is left-aligned in the body (~x=30 to ~x=460) */}
-        <ellipse id="aura-banner-glow" cx="160" cy="100" rx="190" ry="42" fill="url(#aura-banner-grad)" />
-        <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
-        <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
-        <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
-        <ellipse id="aura-cursor-halo" cx="153" cy="1271" rx="14" ry="11" fill="url(#aura-halo-grad)" />
-        <rect id="aura-cursor" x="149" y="1263" width="9" height="14" fill={t.green} />
-      </svg>
+        {/*
+          Two-SVG layering trick:
+          1. BACKGROUND SVG (first child of body, BEHIND the terminal text content):
+             grid + particles + sparks + scan + banner glow
+             → Opaque blocks (json, stats Out cards) sit ON TOP of this SVG and naturally
+                hide the scan bar / particles passing under them.
+          2. FOREGROUND SVG (last child of box, ON TOP of everything):
+             cursor + halo + lights + status + log dots → always visible.
+          
+          Both styles get extracted by readme-aura's renderer and combined into
+          the FIRST </svg> in output (= the background SVG). CSS rules cascade
+          from a parent SVG's <style> to nested SVG siblings in the same outer
+          SVG — so foreground IDs still match.
+        */}
+        <style>{`
+          @keyframes blinkCursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+          @keyframes haloBlink   { 0%, 49% { opacity: 0.6; transform: scale(1.1); } 50%, 100% { opacity: 0; transform: scale(1); } }
+          @keyframes lightPulse  { 0%, 100% { opacity: 1 } 50% { opacity: 0.55 } }
+          @keyframes bannerGlow  { 0%, 100% { opacity: 0.3 } 50% { opacity: 0.56 } }
+          @keyframes statusBeat  { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+          @keyframes scanLine    { 0% { transform: translateY(0); opacity: 0; } 5% { opacity: 0.35; } 95% { opacity: 0.35; } 100% { transform: translateY(1311px); opacity: 0; } }
+          @keyframes logPulse    { 0%, 100% { opacity: 1 } 50% { opacity: 0.25 } }
+          @keyframes ambFloatA   { 0%, 100% { transform: translate(0, 0); opacity: 0.18; } 50% { transform: translate(40px, -60px); opacity: 0.55; } }
+          @keyframes ambFloatB   { 0%, 100% { transform: translate(0, 0); opacity: 0.15; } 50% { transform: translate(-50px, -80px); opacity: 0.5; } }
+          @keyframes ambSpark    { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-1311px); opacity: 0; } }
+          @keyframes ambGridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(144px, 144px); } }
+
+          #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
+          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1278px; }
+          #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
+          #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
+          #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
+          #aura-banner-glow  { animation: bannerGlow 3.5s ease-in-out infinite; }
+          #aura-status       { animation: statusBeat 1.5s ease-in-out infinite; }
+          #aura-scanline     { animation: scanLine 8s linear infinite; }
+          #aura-log-1        { animation: logPulse 2s ease-in-out infinite; }
+          #aura-log-2        { animation: logPulse 2s ease-in-out infinite 0.4s; }
+          #aura-log-3        { animation: logPulse 2s ease-in-out infinite 0.8s; }
+          #aura-log-4        { animation: logPulse 2s ease-in-out infinite 1.2s; }
+          #aura-log-5        { animation: logPulse 2s ease-in-out infinite 1.6s; }
+
+          #amb-grid          { animation: ambGridDrift 16.2s linear infinite; }
+          #amb-p1 { animation: ambFloatA  9s ease-in-out infinite; }
+          #amb-p2 { animation: ambFloatB 11s ease-in-out infinite -2s; }
+          #amb-p3 { animation: ambFloatA 13s ease-in-out infinite -4s; }
+          #amb-p4 { animation: ambFloatB 10s ease-in-out infinite -1s; }
+          #amb-p5 { animation: ambFloatA 12s ease-in-out infinite -3s; }
+          #amb-p6 { animation: ambFloatB  8s ease-in-out infinite -5s; }
+          #amb-p7 { animation: ambFloatA 14s ease-in-out infinite -6s; }
+          #amb-p8 { animation: ambFloatB 11s ease-in-out infinite -2.5s; }
+          #amb-s1 { animation: ambSpark 5s linear infinite; }
+          #amb-s2 { animation: ambSpark 6s linear infinite -1.5s; }
+          #amb-s3 { animation: ambSpark 7s linear infinite -3s; }
+          #amb-s4 { animation: ambSpark 5.5s linear infinite -2.2s; }
+          #amb-s5 { animation: ambSpark 6.5s linear infinite -4s; }
+        `}</style>
+
+        {/* FOREGROUND SVG — drawn on top of all body content (cursor, lights, halo, status, log dots) */}
+        <svg width="900" height="1311" viewBox="0 0 900 1311" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
+          <defs>
+            <radialGradient id="aura-halo-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="rgba(57,211,83,0.65)" />
+              <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
+              <stop offset="100%" stopColor="rgba(57,211,83,0)" />
+            </radialGradient>
+          </defs>
+          <circle id="aura-status" cx="22" cy="152" r="3" fill="#39d353" />
+          <circle id="aura-log-1" cx="20" cy="1088" r="2.5" fill="#39d353" />
+          <circle id="aura-log-2" cx="20" cy="1110" r="2.5" fill="#39d353" />
+          <circle id="aura-log-3" cx="20" cy="1132" r="2.5" fill="#39d353" />
+          <circle id="aura-log-4" cx="20" cy="1154" r="2.5" fill="#e3b341" />
+          <circle id="aura-log-5" cx="20" cy="1176" r="2.5" fill="#39d353" />
+          <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
+          <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
+          <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
+          <ellipse id="aura-cursor-halo" cx="167" cy="1278" rx="14" ry="11" fill="url(#aura-halo-grad)" />
+          <rect id="aura-cursor" x="163" y="1270" width="9" height="14" fill={t.green} />
+        </svg>
+      </div>
     </div>
   );
 })()
