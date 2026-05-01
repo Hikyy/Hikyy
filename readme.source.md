@@ -111,7 +111,10 @@
         position: 'relative',
       }}>
 
-        {/* BACKGROUND SVG — drawn behind chrome+body. Body content with opaque bg (json/stats blocks) hides scan when crossing them. */}
+        {/* BACKGROUND SVG — drawn behind chrome+body. Grid/scan/particles live HERE so the cards in body
+            content (which have their own opaque #010409 bg) naturally hide the grid in their area. No mask,
+            no clip-path needed. The trade-off: curtains in FG hide grid during reveal phase, but only in the
+            body-content rectangle (curtains don't span the box padding). */}
         <svg width="900" height="1311" viewBox="0 0 900 1311" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
           <defs>
             <radialGradient id="aura-banner-grad" cx="50%" cy="50%" r="50%">
@@ -119,13 +122,11 @@
               <stop offset="60%" stopColor="rgba(57,211,83,0.15)" />
               <stop offset="100%" stopColor="rgba(57,211,83,0)" />
             </radialGradient>
-            {/* Grid pattern — 72×72 cells (8% of 900 = reference scale), strokeOpacity reduced 15% to 0.15 */}
             <pattern id="amb-grid-pat" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
-              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#39d353" strokeWidth="0.6" strokeOpacity="0.21" />
+              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#39d353" strokeWidth="0.7" strokeOpacity="0.34" />
             </pattern>
           </defs>
-          {/* Animated drifting grid (now 144px move = 2 cells, faster 18s — more visible motion) */}
-          <rect id="amb-grid" x="-144" y="-144" width="1188" height="1599" fill="url(#amb-grid-pat)" opacity="0.5" />
+          <rect id="amb-grid" x="-144" y="-144" width="1188" height="1599" fill="url(#amb-grid-pat)" opacity="0.72" />
           <ellipse id="aura-banner-glow" cx="265" cy="103" rx="295" ry="42" fill="url(#aura-banner-grad)" />
           <circle id="amb-p1" cx="72"  cy="655"  r="2.3" fill="#39d353" fillOpacity="0.4" />
           <circle id="amb-p2" cx="828" cy="420"  r="2.5" fill="#a78bfa" fillOpacity="0.4" />
@@ -140,7 +141,7 @@
           <circle id="amb-s3" cx="576" cy="1285" r="1.6" fill="#39d353" fillOpacity="0.7" />
           <circle id="amb-s4" cx="720" cy="1285" r="1.3" fill="#39d353" fillOpacity="0.7" />
           <circle id="amb-s5" cx="288" cy="1285" r="1.4" fill="#39d353" fillOpacity="0.7" />
-          <rect id="aura-scanline" x="0" y="0" width="900" height="3" fill="#39d353" fillOpacity="0.35" />
+          <rect id="aura-scanline" x="0" y="0" width="900" height="3" fill="#39d353" fillOpacity="0.5" />
         </svg>
 
         {/* ─── Window chrome ─── */}
@@ -388,7 +389,7 @@
 
           #curt-banner       { animation: reveal 0.4s ease-out 0s forwards; }
 
-          /* Typing 70ms/char. Output reveal 0.4s. Pause output_END → next_cmd_START: 300ms (was 200, slightly longer). */
+          /* Typing 70ms/char. Output reveal 0.4s. Pause output_END → next_cmd_START: 300ms. */
           #curt-whoami-pre   { animation: reveal 0.1s linear 700ms  forwards; }
           #curt-whoami-cmd   { animation: typing 0.42s steps(6)  700ms  forwards; transform-box: fill-box; transform-origin: 100% 50%; }
           #typing-cur-w      { animation: mvT-w 0.42s steps(6) 700ms forwards, mvCur6 0.42s linear 700ms forwards; transform-box: fill-box; }
@@ -435,7 +436,8 @@
           #amb-s5 { animation: ambSpark 6.5s linear infinite -4s; }
         `}</style>
 
-        {/* FOREGROUND SVG — drawn on top of all body content (cursor, lights, halo, status, log dots) */}
+        {/* FOREGROUND SVG — drawn on top of all body content (cursor, lights, halo, status, log dots, curtains).
+            Grid/scan/particles live AT THE END (after curtains) so they overlay everything and stay visible during the curtain wipe. */}
         <svg width="900" height="1311" viewBox="0 0 900 1311" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0 }}>
           <defs>
             <radialGradient id="aura-halo-grad" cx="50%" cy="50%" r="50%">
