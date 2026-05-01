@@ -389,38 +389,39 @@
 
           #curt-banner       { animation: reveal 0.4s ease-out 0s forwards; }
 
-          /* Typing 70ms/char. Output reveal 0.4s. Pause output_END → next_cmd_START: 300ms. */
-          #curt-whoami-pre   { animation: reveal 0.1s linear 700ms  forwards; }
-          #curt-whoami-cmd   { animation: typing 0.42s steps(6)  700ms  forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-w      { animation: mvT-w 0.42s steps(6) 700ms forwards, mvCur6 0.42s linear 700ms forwards; transform-box: fill-box; }
-          #curt-whoami-out   { animation: outRev 0.4s ease-out 1280ms forwards; }
+          /* Compressed timeline: stats-out 4s, log-out 5s, ping-out 6s, cursor-line 7s.
+             Typing 25ms/char (vs original 70). Output reveal 0.4s. Tight ~100-200ms gaps between sections. */
+          #curt-whoami-pre   { animation: reveal 0.1s linear 500ms forwards; }
+          #curt-whoami-cmd   { animation: typing 0.15s steps(6) 500ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-w      { animation: mvT-w 0.15s steps(6) 500ms forwards, mvCur6 0.15s linear 500ms forwards; transform-box: fill-box; }
+          #curt-whoami-out   { animation: outRev 0.4s ease-out 700ms forwards; }
 
-          #curt-stack-pre    { animation: reveal 0.1s linear 1980ms  forwards; }
-          #curt-stack-cmd    { animation: typing 0.98s steps(14) 1980ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-st     { animation: mvT-st 0.98s steps(14) 1980ms forwards, mvCur6 0.98s linear 1980ms forwards; transform-box: fill-box; }
-          #curt-stack-out    { animation: outRev 0.4s ease-out 3120ms forwards; }
+          #curt-stack-pre    { animation: reveal 0.1s linear 1200ms forwards; }
+          #curt-stack-cmd    { animation: typing 0.35s steps(14) 1200ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-st     { animation: mvT-st 0.35s steps(14) 1200ms forwards, mvCur6 0.35s linear 1200ms forwards; transform-box: fill-box; }
+          #curt-stack-out    { animation: outRev 0.4s ease-out 1650ms forwards; }
 
-          #curt-ls-pre       { animation: reveal 0.1s linear 3820ms  forwards; }
-          #curt-ls-cmd       { animation: typing 1.12s steps(16) 3820ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-ls     { animation: mvT-ls 1.12s steps(16) 3820ms forwards, mvCur6 1.12s linear 3820ms forwards; transform-box: fill-box; }
-          #curt-ls-out       { animation: outRev 0.4s ease-out 5100ms forwards; }
+          #curt-ls-pre       { animation: reveal 0.1s linear 2150ms forwards; }
+          #curt-ls-cmd       { animation: typing 0.4s steps(16) 2150ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-ls     { animation: mvT-ls 0.4s steps(16) 2150ms forwards, mvCur6 0.4s linear 2150ms forwards; transform-box: fill-box; }
+          #curt-ls-out       { animation: outRev 0.4s ease-out 2650ms forwards; }
 
-          #curt-stats-pre    { animation: reveal 0.1s linear 5800ms  forwards; }
-          #curt-stats-cmd    { animation: typing 2.1s  steps(30) 5800ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-ss     { animation: mvT-ss 2.1s steps(30) 5800ms forwards, mvCur6 2.1s linear 5800ms forwards; transform-box: fill-box; }
-          #curt-stats-out    { animation: outRev 0.4s ease-out 8060ms forwards; }
+          #curt-stats-pre    { animation: reveal 0.1s linear 3150ms forwards; }
+          #curt-stats-cmd    { animation: typing 0.75s steps(30) 3150ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-ss     { animation: mvT-ss 0.75s steps(30) 3150ms forwards, mvCur6 0.75s linear 3150ms forwards; transform-box: fill-box; }
+          #curt-stats-out    { animation: outRev 0.4s ease-out 4000ms forwards; }
 
-          #curt-log-pre      { animation: reveal 0.1s linear 8760ms forwards; }
-          #curt-log-cmd      { animation: typing 1.4s  steps(20) 8760ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-lg     { animation: mvT-lg 1.4s steps(20) 8760ms forwards, mvCur6 1.4s linear 8760ms forwards; transform-box: fill-box; }
-          #curt-log-out      { animation: outRev 0.4s ease-out 10320ms forwards; }
+          #curt-log-pre      { animation: reveal 0.1s linear 4400ms forwards; }
+          #curt-log-cmd      { animation: typing 0.5s steps(20) 4400ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-lg     { animation: mvT-lg 0.5s steps(20) 4400ms forwards, mvCur6 0.5s linear 4400ms forwards; transform-box: fill-box; }
+          #curt-log-out      { animation: outRev 0.4s ease-out 5000ms forwards; }
 
-          #curt-ping-pre     { animation: reveal 0.1s linear 11020ms forwards; }
-          #curt-ping-cmd     { animation: typing 0.98s steps(14) 11020ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-pg     { animation: mvT-pg 0.98s steps(14) 11020ms forwards, mvCur6 0.98s linear 11020ms forwards; transform-box: fill-box; }
-          #curt-ping-out     { animation: outRev 0.4s ease-out 12160ms forwards; }
+          #curt-ping-pre     { animation: reveal 0.1s linear 5550ms forwards; }
+          #curt-ping-cmd     { animation: typing 0.35s steps(14) 5550ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-pg     { animation: mvT-pg 0.35s steps(14) 5550ms forwards, mvCur6 0.35s linear 5550ms forwards; transform-box: fill-box; }
+          #curt-ping-out     { animation: outRev 0.4s ease-out 6000ms forwards; }
 
-          #curt-cursor-line  { animation: reveal 0.4s ease-out 12860ms forwards; }
+          #curt-cursor-line  { animation: reveal 0.4s ease-out 7000ms forwards; }
           #amb-p1 { animation: ambFloatA  9s ease-in-out infinite; }
           #amb-p2 { animation: ambFloatB 11s ease-in-out infinite -2s; }
           #amb-p3 { animation: ambFloatA 13s ease-in-out infinite -4s; }
@@ -467,46 +468,49 @@
             Char width in JetBrains Mono fontSize 13 ≈ 8px
             Standard prompt prefix ends at ~x=167. Ls prompt with ~/projects ends at ~x=237.
           */}
-          <rect id="curt-banner"      x="0" y="58"   width="900" height="105" fill={t.termBg} />
+          {/* All curtains span body-content extent only: x=28 (body padding-left) to x=872 (width=844).
+              This way curtains never touch the right border (x≥899) or the left/right paddings — the box
+              border + the surrounding ambient grid stay visible from the very first frame. */}
+          <rect id="curt-banner"      x="28" y="58"   width="844" height="105" fill={t.termBg} />
 
           {/* whoami: 6 chars → cmd_w=48 */}
-          <rect id="curt-whoami-pre"  x="0"   y="176"  width="167" height="22"  fill={t.termBg} />
+          <rect id="curt-whoami-pre"  x="28"  y="176"  width="139" height="22"  fill={t.termBg} />
           <rect id="curt-whoami-cmd"  x="167" y="176"  width="48"  height="22"  fill={t.termBg} />
           <rect id="typing-cur-w"     x="167" y="180"  width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-whoami-out"  x="0"   y="197"  width="900" height="138" fill={t.termBg} />
+          <rect id="curt-whoami-out"  x="28"  y="197"  width="844" height="138" fill={t.termBg} />
 
           {/* cat stack.json: 14 chars → cmd_w=112 */}
-          <rect id="curt-stack-pre"   x="0"   y="347"  width="167" height="22"  fill={t.termBg} />
+          <rect id="curt-stack-pre"   x="28"  y="347"  width="139" height="22"  fill={t.termBg} />
           <rect id="curt-stack-cmd"   x="167" y="347"  width="112" height="22"  fill={t.termBg} />
           <rect id="typing-cur-st"    x="167" y="351"  width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-stack-out"   x="0"   y="370"  width="900" height="313" fill={t.termBg} />
+          <rect id="curt-stack-out"   x="28"  y="370"  width="844" height="313" fill={t.termBg} />
 
           {/* ls -la --shipped: 16 chars → cmd_w=128. Prefix wider because of "~/projects" path → ends at ~x=237 */}
-          <rect id="curt-ls-pre"      x="0"   y="684"  width="237" height="22"  fill={t.termBg} />
+          <rect id="curt-ls-pre"      x="28"  y="684"  width="209" height="22"  fill={t.termBg} />
           <rect id="curt-ls-cmd"      x="237" y="684"  width="128" height="22"  fill={t.termBg} />
           <rect id="typing-cur-ls"    x="237" y="688"  width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-ls-out"      x="0"   y="706"  width="900" height="90"  fill={t.termBg} />
+          <rect id="curt-ls-out"      x="28"  y="706"  width="844" height="90"  fill={t.termBg} />
 
           {/* ./show-stats.sh --user $(whoami): 30 chars → cmd_w=240 */}
-          <rect id="curt-stats-pre"   x="0"   y="807"  width="167" height="22"  fill={t.termBg} />
+          <rect id="curt-stats-pre"   x="28"  y="807"  width="139" height="22"  fill={t.termBg} />
           <rect id="curt-stats-cmd"   x="167" y="807"  width="240" height="22"  fill={t.termBg} />
           <rect id="typing-cur-ss"    x="167" y="811"  width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-stats-out"   x="0"   y="829"  width="900" height="212" fill={t.termBg} />
+          <rect id="curt-stats-out"   x="28"  y="829"  width="844" height="212" fill={t.termBg} />
 
           {/* tail -f activity.log: 20 chars → cmd_w=160 (positions calibrated for CI render with real stats data) */}
-          <rect id="curt-log-pre"     x="0"   y="1061" width="167" height="22"  fill={t.termBg} />
+          <rect id="curt-log-pre"     x="28"  y="1061" width="139" height="22"  fill={t.termBg} />
           <rect id="curt-log-cmd"     x="167" y="1061" width="160" height="22"  fill={t.termBg} />
           <rect id="typing-cur-lg"    x="167" y="1062" width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-log-out"     x="0"   y="1083" width="900" height="121" fill={t.termBg} />
+          <rect id="curt-log-out"     x="12"  y="1083" width="860" height="121" fill={t.termBg} />
 
           {/* ping --connect: 14 chars → cmd_w=112 */}
-          <rect id="curt-ping-pre"    x="0"   y="1214" width="167" height="22"  fill={t.termBg} />
+          <rect id="curt-ping-pre"    x="28"  y="1214" width="139" height="22"  fill={t.termBg} />
           <rect id="curt-ping-cmd"    x="167" y="1214" width="112" height="22"  fill={t.termBg} />
           <rect id="typing-cur-pg"    x="167" y="1215" width="8"   height="14"  fill={t.green} opacity="0" />
-          <rect id="curt-ping-out"    x="0"   y="1236" width="900" height="28"  fill={t.termBg} />
+          <rect id="curt-ping-out"    x="28"  y="1236" width="844" height="28"  fill={t.termBg} />
 
           {/* Final cursor line (covers existing aura-cursor + halo until pingOut+500ms) */}
-          <rect id="curt-cursor-line" x="0"   y="1266" width="900" height="40"  fill={t.termBg} />
+          <rect id="curt-cursor-line" x="28"  y="1266" width="844" height="40"  fill={t.termBg} />
         </svg>
       </div>
     </div>
