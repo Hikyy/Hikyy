@@ -121,7 +121,7 @@
             </radialGradient>
             {/* Grid pattern — 72×72 cells (8% of 900 = reference scale), strokeOpacity reduced 15% to 0.15 */}
             <pattern id="amb-grid-pat" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
-              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#39d353" strokeWidth="0.6" strokeOpacity="0.185" />
+              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#39d353" strokeWidth="0.6" strokeOpacity="0.21" />
             </pattern>
           </defs>
           {/* Animated drifting grid (now 144px move = 2 cells, faster 18s — more visible motion) */}
@@ -355,10 +355,10 @@
           @keyframes ambFloatA   { 0%, 100% { transform: translate(0, 0); opacity: 0.18; } 50% { transform: translate(40px, -60px); opacity: 0.55; } }
           @keyframes ambFloatB   { 0%, 100% { transform: translate(0, 0); opacity: 0.15; } 50% { transform: translate(-50px, -80px); opacity: 0.5; } }
           @keyframes ambSpark    { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-1311px); opacity: 0; } }
-          @keyframes ambGridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(144px, 144px); } }
+          @keyframes ambGridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(160px, 160px); } }
 
           #aura-cursor       { animation: blinkCursor 1s steps(2) infinite; }
-          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1285px; }
+          #aura-cursor-halo  { animation: haloBlink 1s steps(2) infinite; transform-origin: 167px 1287px; }
           #aura-light-r      { animation: lightPulse 2.4s ease-in-out infinite; }
           #aura-light-y      { animation: lightPulse 2.4s ease-in-out infinite 0.3s; }
           #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
@@ -453,8 +453,8 @@
           <circle id="aura-light-r" cx="23" cy="19" r="6" fill="#ff5f56" />
           <circle id="aura-light-y" cx="43" cy="19" r="6" fill="#ffbd2e" />
           <circle id="aura-light-g" cx="63" cy="19" r="6" fill="#27c93f" />
-          <ellipse id="aura-cursor-halo" cx="167" cy="1285" rx="14" ry="11" fill="url(#aura-halo-grad)" />
-          <rect id="aura-cursor" x="163" y="1277" width="9" height="14" fill={t.green} />
+          <ellipse id="aura-cursor-halo" cx="167" cy="1287" rx="14" ry="11" fill="url(#aura-halo-grad)" />
+          <rect id="aura-cursor" x="163" y="1279" width="9" height="14" fill={t.green} />
 
           {/*
             ── PROGRESSIVE REVEAL CURTAINS ──
