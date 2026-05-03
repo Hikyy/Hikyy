@@ -365,7 +365,7 @@
           #aura-light-g      { animation: lightPulse 2.4s ease-in-out infinite 0.6s; }
           #aura-banner-glow  { animation: bannerGlow 3.5s ease-in-out infinite; }
           #aura-status       { animation: statusBeat 1.5s ease-in-out infinite; }
-          #aura-scanline     { animation: scanLine 8s linear infinite; }
+          #aura-scanline     { animation: scanLine 9.9s linear infinite; }
           #aura-log-1        { animation: logPulse 2s ease-in-out infinite; }
           #aura-log-2        { animation: logPulse 2s ease-in-out infinite 0.4s; }
           #aura-log-3        { animation: logPulse 2s ease-in-out infinite 0.8s; }
