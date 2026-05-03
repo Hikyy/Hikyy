@@ -387,41 +387,41 @@
           @keyframes mvT-lg  { 0% { transform: translateX(0); } 100% { transform: translateX(160px); } }
           @keyframes mvT-pg  { 0% { transform: translateX(0); } 100% { transform: translateX(112px); } }
 
-          #curt-banner       { animation: reveal 0.4s ease-out 0s forwards; }
+          #curt-banner       { animation: reveal 0.5s ease-out 0s forwards; }
 
-          /* Compressed timeline: stats-out 4s, log-out 5s, ping-out 6s, cursor-line 7s.
-             Typing 25ms/char (vs original 70). Output reveal 0.4s. Tight ~100-200ms gaps between sections. */
-          #curt-whoami-pre   { animation: reveal 0.1s linear 500ms forwards; }
-          #curt-whoami-cmd   { animation: typing 0.15s steps(6) 500ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-w      { animation: mvT-w 0.15s steps(6) 500ms forwards, mvCur6 0.15s linear 500ms forwards; transform-box: fill-box; }
-          #curt-whoami-out   { animation: outRev 0.4s ease-out 700ms forwards; }
+          /* Typing 60ms/char (slower, more readable). Output reveal 0.5s. ~200ms gaps between sections.
+             Last 4 OUT delays (≥4/5/6/7s minimum): stats=7.1s, log=9.1s, ping=10.7s, cursor-line=11.2s. */
+          #curt-whoami-pre   { animation: reveal 0.1s linear 700ms forwards; }
+          #curt-whoami-cmd   { animation: typing 0.36s steps(6) 700ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-w      { animation: mvT-w 0.36s steps(6) 700ms forwards, mvCur6 0.36s linear 700ms forwards; transform-box: fill-box; }
+          #curt-whoami-out   { animation: outRev 0.5s ease-out 1260ms forwards; }
 
-          #curt-stack-pre    { animation: reveal 0.1s linear 1200ms forwards; }
-          #curt-stack-cmd    { animation: typing 0.35s steps(14) 1200ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-st     { animation: mvT-st 0.35s steps(14) 1200ms forwards, mvCur6 0.35s linear 1200ms forwards; transform-box: fill-box; }
-          #curt-stack-out    { animation: outRev 0.4s ease-out 1650ms forwards; }
+          #curt-stack-pre    { animation: reveal 0.1s linear 1800ms forwards; }
+          #curt-stack-cmd    { animation: typing 0.84s steps(14) 1800ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-st     { animation: mvT-st 0.84s steps(14) 1800ms forwards, mvCur6 0.84s linear 1800ms forwards; transform-box: fill-box; }
+          #curt-stack-out    { animation: outRev 0.5s ease-out 2840ms forwards; }
 
-          #curt-ls-pre       { animation: reveal 0.1s linear 2150ms forwards; }
-          #curt-ls-cmd       { animation: typing 0.4s steps(16) 2150ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-ls     { animation: mvT-ls 0.4s steps(16) 2150ms forwards, mvCur6 0.4s linear 2150ms forwards; transform-box: fill-box; }
-          #curt-ls-out       { animation: outRev 0.4s ease-out 2650ms forwards; }
+          #curt-ls-pre       { animation: reveal 0.1s linear 3400ms forwards; }
+          #curt-ls-cmd       { animation: typing 0.96s steps(16) 3400ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-ls     { animation: mvT-ls 0.96s steps(16) 3400ms forwards, mvCur6 0.96s linear 3400ms forwards; transform-box: fill-box; }
+          #curt-ls-out       { animation: outRev 0.5s ease-out 4560ms forwards; }
 
-          #curt-stats-pre    { animation: reveal 0.1s linear 3150ms forwards; }
-          #curt-stats-cmd    { animation: typing 0.75s steps(30) 3150ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-ss     { animation: mvT-ss 0.75s steps(30) 3150ms forwards, mvCur6 0.75s linear 3150ms forwards; transform-box: fill-box; }
-          #curt-stats-out    { animation: outRev 0.4s ease-out 4000ms forwards; }
+          #curt-stats-pre    { animation: reveal 0.1s linear 5100ms forwards; }
+          #curt-stats-cmd    { animation: typing 1.8s steps(30) 5100ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-ss     { animation: mvT-ss 1.8s steps(30) 5100ms forwards, mvCur6 1.8s linear 5100ms forwards; transform-box: fill-box; }
+          #curt-stats-out    { animation: outRev 0.5s ease-out 7100ms forwards; }
 
-          #curt-log-pre      { animation: reveal 0.1s linear 4400ms forwards; }
-          #curt-log-cmd      { animation: typing 0.5s steps(20) 4400ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-lg     { animation: mvT-lg 0.5s steps(20) 4400ms forwards, mvCur6 0.5s linear 4400ms forwards; transform-box: fill-box; }
-          #curt-log-out      { animation: outRev 0.4s ease-out 5000ms forwards; }
+          #curt-log-pre      { animation: reveal 0.1s linear 7700ms forwards; }
+          #curt-log-cmd      { animation: typing 1.2s steps(20) 7700ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-lg     { animation: mvT-lg 1.2s steps(20) 7700ms forwards, mvCur6 1.2s linear 7700ms forwards; transform-box: fill-box; }
+          #curt-log-out      { animation: outRev 0.5s ease-out 9100ms forwards; }
 
-          #curt-ping-pre     { animation: reveal 0.1s linear 5550ms forwards; }
-          #curt-ping-cmd     { animation: typing 0.35s steps(14) 5550ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
-          #typing-cur-pg     { animation: mvT-pg 0.35s steps(14) 5550ms forwards, mvCur6 0.35s linear 5550ms forwards; transform-box: fill-box; }
-          #curt-ping-out     { animation: outRev 0.4s ease-out 6000ms forwards; }
+          #curt-ping-pre     { animation: reveal 0.1s linear 9700ms forwards; }
+          #curt-ping-cmd     { animation: typing 0.84s steps(14) 9700ms forwards; transform-box: fill-box; transform-origin: 100% 50%; }
+          #typing-cur-pg     { animation: mvT-pg 0.84s steps(14) 9700ms forwards, mvCur6 0.84s linear 9700ms forwards; transform-box: fill-box; }
+          #curt-ping-out     { animation: outRev 0.5s ease-out 10740ms forwards; }
 
-          #curt-cursor-line  { animation: reveal 0.4s ease-out 7000ms forwards; }
+          #curt-cursor-line  { animation: reveal 0.5s ease-out 11200ms forwards; }
           #amb-p1 { animation: ambFloatA  9s ease-in-out infinite; }
           #amb-p2 { animation: ambFloatB 11s ease-in-out infinite -2s; }
           #amb-p3 { animation: ambFloatA 13s ease-in-out infinite -4s; }
